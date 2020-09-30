@@ -12,7 +12,7 @@
     if($exists > 0){
         while($row = mysql_fetch_assoc($query)){
             $table_users = $row['username'];
-            $table_password = $row['password']
+            $table_password = $row['password'];
         }
 
         if(($username == $table_users) && ($password == $table_password)){
