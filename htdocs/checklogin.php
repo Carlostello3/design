@@ -1,32 +1,45 @@
 <?php
-    session_start();
-    $username = mysql_real_escape_string($_POST['username']);
-    $password = mysql_real_escape_string($_POST['password']);
+session_start();
+$servername = "localhost";
+$dbUsername = "root";
+$dbPassword = "dbPassword";
+$dbName = "design_items";
 
-    mysql_connect("localhost", "root" , "") or die(mysql_error());
-    mysql_select_db("design_items") or die("Cannot connect to database");
-    $query = mysql_query("SELECT * from users WHERE username = '$username'");
-    $exists = mysql_num_rows($query);
-    $table_users = "";
-    $table_password = "";
-    if($exists > 0){
-        while($row = mysql_fetch_assoc($query)){
-            $table_users = $row['username'];
-            $table_password = $row['password'];
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
+
+    if($conn -> connect_error){
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM `users` WHERE username = '$username'";
+
+    $result = $conn -> query($sql);
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()) {
+            $table_users = $row["username"];
+            $table_password = $row["password"];
         }
 
-        if(($username == $table_users) && ($password == $table_password)){
+        if(($username ==  $table_users) && ($password == $table_password)){
             if($password == $table_password){
-                $_SESSION['user'] = $username;
+                $_SESSION['username'] = $username;
                 header("location: home.php");
             }
-        } else {
+        } 
+        else {
             Print '<script>alert("Incorrect Password!");</script>';
 			Print '<script>window.location.assign("login.php");</script>';
         }
-    } else {
-        Print '<script>alert("Incorrect Username!");</script>';
-		Print '<script>window.location.assign("login.php");</script>';
+    }else {
+            Print '<script>alert("Incorrect Username!");</script>';
+            Print '<script>window.location.assign("login.php");</script>';
     }
-
+    $conn->close();
+}
 ?>

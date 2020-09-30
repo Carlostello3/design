@@ -4,18 +4,19 @@
     </head>
     <?php
         session_start();
-        if($_SESSION['user']){
-
+        
+        if($_SESSION['username']){
         } else {
             header("location:index.php");
         }
+        
 
-        $user = $_SESSION['user'];
+        $username = $_SESSION['username'];
     ?>
 
     <body>
         <h2>Home Page</h2>
-        <p>Welcome <?php Print "$user"?>!</p>
+        <p>Welcome <?php Print "$username"?>!</p>
         <a href="logout.php">Log Out</a>
     </body>
 </html>
