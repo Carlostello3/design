@@ -17,7 +17,7 @@
     <body>
         <h2>Home Page</h2>
         <p>Welcome <?php Print "$username"?>!</p>
-        <a href="logout.php">Log Out</a>
+        
         <div class="main_grid">
         <?php
         $servername = "localhost";
@@ -31,16 +31,163 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
+        //DISPLAY PRODCUTS
         $sql = "SELECT * FROM products";
         $result = $conn -> query($sql);
 
         if($result->num_rows > 0){
-            echo "some results";
+            echo "<table id='products'>
+                <tbody>
+                <tr>
+                    <th>Product</th>
+                    <th>Cost</th>
+                </tr>";
+            while($row = $result->fetch_assoc()){
+                $productName = $row["name"];
+                $productCost = $row["cost"];
+
+                echo 
+                '<tr> 
+                    <td>'.$productName.'</td> 
+                    <td> $ '.$productCost.'.00 </td> 
+                    <td><button type="button" onclick="addToCart(this)">Add</button></td>
+                </tr>';
+            }
+            echo "</tbody></table>";
+            $result->free();
         } else {
             echo "0 results";
         }
 
+
+        //DISPLAY SERVICES
+        $sql = "SELECT * FROM services";
+        $result = $conn -> query($sql);
+
+        if($result->num_rows > 0){
+            echo "<table id='services'>
+                <tbody>
+                <tr>
+                    <th>Service</th>
+                    <th>Cost</th>
+                </tr>";
+            while($row = $result->fetch_assoc()){
+                $serviceName = $row["name"];
+                $serviceCost = $row["price"];
+
+                echo 
+                '<tr> 
+                    <td >'.$serviceName.'</td> 
+                    <td > $ '.$serviceCost.'.00 </td> 
+                    <td><button type="button" onclick="addToCart(this)">Add</button></td>
+                </tr>';
+            }
+            echo "</tbody></table>";
+            $result->free();
+        } else {
+            echo "0 results";
+        }
         ?>
         </div>
+        <br>
+        <div id=cart>
+
+            <table >
+            
+            <tr>
+                <th>Quantity</th>
+                <th>Item</th>
+                <th>Cost</th>
+            </tr>
+            <tbody id=tableCart>
+                <script>
+
+                    //ADD ITEMS TO CART
+                    var cart = []
+                    var total = []
+                
+                    function addToCart(element){
+                        var row = element.parentNode.parentNode.firstElementChild;
+                        var name = row.innerHTML;
+                        var price = row.nextElementSibling.innerHTML;
+                        
+                        
+                        cart.push(["1x", name, price])
+                        total.push(parseInt(price.replace('$ ', '')))
+                        
+                        var totalValue = document.getElementById("totalValue").innerHTML
+                        totalValue = "$ " + total.reduce(addTotal) + ".00"
+                        updateCartTable(cart)
+                    }
+
+                    //ADD ITEMS TO TABLE
+                    var tableBody = document.getElementById('tableCart');
+                    
+                    function updateCartTable(cart){
+                        tableBody.innerHTML = '';
+                        cart.forEach(function(rowData){
+                            var row = document.createElement('tr');
+
+                            rowData.forEach(function(cellData){
+                                var cell = document.createElement('td');
+                                cell.appendChild(document.createTextNode(cellData));
+                                row.appendChild(cell);
+                            });
+                        
+                            tableBody.appendChild(row);
+                        });
+                    }
+
+                    //ADD TOTAL VALUE
+                    function addTotal(values, num){
+                        return values + num
+                    }
+
+                    //CLEAR CART
+                    function emptyCart(){
+                        tableBody.innerHTML = '';
+                        totalValue.innerHTML = "$0.00";
+                        cart = [];
+                        total = [];
+
+                    }
+                </script>
+            </tbody>
+            <tfooter>
+            <tr>
+                <td>TOTAL</td>
+                <td></td>
+                <td id=totalValue></td>
+            </tr>
+            
+            </tfooter>
+            
+            </table>
+            <button type="button" onclick="emptyCart()">Clear Cart</button>
+        </div>
+
+        <script>
+
+            var cart = []
+            var total = []
+        
+            function addToCart(element){
+                var row = element.parentNode.parentNode.firstElementChild;
+                var name = row.innerHTML;
+                var price = row.nextElementSibling.innerHTML;
+                
+                
+                cart.push(["1x", name, price])
+                total.push(parseInt(price.replace('$ ', '')))
+                
+                document.getElementById("totalValue").innerHTML = "$ " + total.reduce(addTotal) + ".00"
+                updateCartTable(cart)
+            }
+
+            
+        </script>
+            
+        <br>
+        <a href="logout.php">Log Out</a>
     </body>
 </html>
