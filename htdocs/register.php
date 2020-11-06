@@ -1,20 +1,40 @@
 <html>
     <head>
-    <title>CT Designs - Register</title>
+        <link rel="stylesheet" href="style.css">
+        <title>CT Designs - Register</title>
     </head>
     <body>
-        <h2>CT Designs - Registration Page</h2>
-        <a href="index.php">Click here to go home</a>
         <form action="register.php" method="POST">
-        <p>All fields are required!</p>
-            Username: <input type="text" name="username" required="required" />
-            <br/>
-            Password: <input type="password" name="password" required="required" />
-            <br/>
-            Email Address: <input type="text" name="email_address" required="required" />
-            <br/>
-            <input type="submit" value="Register" />
+            <div class="imgContainer">
+                <a href="index.php"><img src="images/ctLogo.png" width="350px"/></a>
+            </div>
+
+            <div class="formContainer">
+                <small>All fields are required!</small>
+                <br/>
+                <label for="fuser">Username</label>
+                <input id="fuser" type="text" name="username" required="required" />
+                <br/>
+                <label for="fpass">Password</label>
+                <input id="fpass" type="password" name="password" required="required" />
+                <br/>
+                <label for="femail">Email Address</label>
+                <input id="femail" type="text" name="email_address" required="required" />
+                <br/>
+            </div>
+            
+            <div class="submitButton2">
+                <input type="submit" value="Register" />
+            </div>
         </form>
+
+        <div class="bottomLinks">
+            Already a User? <a href="login.php">Log in Here</a>
+        </div>
+
+        <footer>
+                CT Designs © - 2020
+        </footer>
     </body>
 </html>
 

@@ -1,6 +1,7 @@
 
 <html>
     <head>
+        <link rel="stylesheet" href="style.css">
         <title>CT Designs - Home</title>
     </head>
     <?php
@@ -13,14 +14,8 @@
         
 
         $username = $_SESSION['username'];
-    ?>
 
-    <body>
-        <h2>Home Page</h2>
-        <p>Welcome <?php Print "$username"?>!</p>
-        
-        <div class="main_grid">
-        <?php
+        //GET CURRENT USER
         $servername = "localhost";
         $dbUsername = "root";
         $dbPassword = "dbPassword";
@@ -31,7 +26,48 @@
         if($conn -> connect_error){
             die("Connection failed: " . $conn->connect_error);
         }
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $result = $conn -> query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $userId = $row["id"];
+                $userEmail = $row["email_address"];
+                $userFirst = $row["first_name"];
+                $userLast = $row["last_name"];
+            }
+            $result->free();
+        } else {
+            echo 
+                $userEmail = "n/a";
+                $userFirst = "n/a";
+                $userLast = "n/a";
+                $userId = "n/a";
+        }
 
+        $updatedUserId = 200000 + $userId;
+    ?>
+    
+    <body>
+        <div class="flex-container">
+
+            <div class="flex-child">
+                <img src="images/ctLogo.png" width="250px"/>
+            </div>
+        
+            <div class="flex-child">
+                <p><?php Print "$userFirst $userLast ($username)"?></p>
+                <p><?php Print "$userEmail"?></p>
+                <p><?php Print "CID: $updatedUserId"?></p>
+                <p><a href="logout.php">Log Out</a></p>
+            </div>
+        
+        </div>
+        
+        <hr>
+        
+        
+        <div class="main_grid">
+        <?php
         //DISPLAY PRODCUTS
         $sql = "SELECT * FROM products";
         $result = $conn -> query($sql);
@@ -42,6 +78,7 @@
                 <tr>
                     <th>Product</th>
                     <th>Cost</th>
+                    <th><img src='images/cart.png'width='30px'/></th>
                 </tr>";
             while($row = $result->fetch_assoc()){
                 $productName = $row["name"];
@@ -51,10 +88,10 @@
                 '<tr> 
                     <td>'.$productName.'</td> 
                     <td> $ '.$productCost.'.00 </td> 
-                    <td><button type="button" onclick="addToCart(this)">Add</button></td>
+                    <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
                 </tr>';
             }
-            echo "</tbody></table>";
+            echo "</tbody></table></br></br>";
             $result->free();
         } else {
             echo "0 results";
@@ -71,6 +108,7 @@
                 <tr>
                     <th>Service</th>
                     <th>Cost</th>
+                    <th><img src='images/cart.png'width='30px'/></th>
                 </tr>";
             while($row = $result->fetch_assoc()){
                 $serviceName = $row["name"];
@@ -80,7 +118,7 @@
                 '<tr> 
                     <td >'.$serviceName.'</td> 
                     <td > $ '.$serviceCost.'.00 </td> 
-                    <td><button type="button" onclick="addToCart(this)">Add</button></td>
+                    <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
                 </tr>';
             }
             echo "</tbody></table>";
@@ -93,7 +131,7 @@
         <br>
         <div id=cart>
 
-            <table>
+            <table id=cart>
             
             <tr>
                 <th>Quantity</th>
@@ -102,9 +140,9 @@
             </tr>
             <tbody id=tableCart></tbody>
             <tfooter>
-            <tr>
+            <tr class="totalValue" >
                 <td>TOTAL</td>
-                <td></td>
+                <td> ----------</td>
                 <td id=totalValue>$0.00</td>
             </tr>
             
@@ -209,6 +247,6 @@
         </script>
             
         <br>
-        <a href="logout.php">Log Out</a>
+        
     </body>
 </html>
