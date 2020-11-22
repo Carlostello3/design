@@ -12,7 +12,7 @@
             </div>
 
             <div class="formContainer">
-                <label for="fname">Username / Email:</label>
+                <label for="fname">Username:</label>
                 <input id="fname" type="text" name="username" required="required" placeholder="your@email.com"/>
                 <br/>
                 <label for="fpass">Password:</label>

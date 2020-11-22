@@ -54,10 +54,10 @@
                 <img src="images/ctLogo.png" width="250px"/>
             </div>
         
-            <div class="flex-child">
-                <p><?php Print "$userFirst $userLast ($username)"?></p>
-                <p><?php Print "$userEmail"?></p>
-                <p><?php Print "CID: $updatedUserId"?></p>
+            <div id=customerInfo class="flex-child">
+                <p id=customerName><?php Print "$userFirst $userLast ($username)"?></p>
+                <p id=customerEmail><?php Print "$userEmail"?></p>
+                <p id=customerId><?php Print "CID: $updatedUserId"?></p>
                 <p><a href="logout.php">Log Out</a></p>
             </div>
         
@@ -66,67 +66,78 @@
         <hr>
         
         
-        <div class="main_grid">
-        <?php
-        //DISPLAY PRODCUTS
-        $sql = "SELECT * FROM products";
-        $result = $conn -> query($sql);
+        <div class="flex-container-tables">
+            <div class="flex-child-tables">
+                <?php
+                    //DISPLAY PRODCUTS
+                    $sql = "SELECT * FROM products";
+                    $result = $conn -> query($sql);
 
-        if($result->num_rows > 0){
-            echo "<table id='products'>
-                <tbody>
-                <tr>
-                    <th>Product</th>
-                    <th>Cost</th>
-                    <th><img src='images/cart.png'width='30px'/></th>
-                </tr>";
-            while($row = $result->fetch_assoc()){
-                $productName = $row["name"];
-                $productCost = $row["cost"];
+                    if($result->num_rows > 0){
+                        echo "<table id='products'>
+                            <h3>PRODUCTS</h3>
+                            <tbody>
+                            <tr>
+                                <th>Item</th>
+                                <th>Cost</th>
+                                <th><img src='images/cart.png'width='30px'/></th>
+                            </tr>";
+                            while($row = $result->fetch_assoc()){
+                                $productName = $row["name"];
+                                $productCost = $row["cost"];
 
-                echo 
-                '<tr> 
-                    <td>'.$productName.'</td> 
-                    <td> $ '.$productCost.'.00 </td> 
-                    <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
-                </tr>';
-            }
-            echo "</tbody></table></br></br>";
-            $result->free();
-        } else {
-            echo "0 results";
-        }
+                            echo 
+                            '<tr> 
+                                <td>'.$productName.'</td> 
+                                <td> $ '.$productCost.'.00 </td> 
+                                <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
+                            </tr>';
+                            }
+                        echo "</tbody></table></br></br>";
+                        $result->free();
+                    } else {
+                        echo "0 results";
+                    }
+                ?>
+            </div>
 
 
-        //DISPLAY SERVICES
-        $sql = "SELECT * FROM services";
-        $result = $conn -> query($sql);
+            <div class="flex-child-tables">
+                <?php
+                    //DISPLAY SERVICES
+                    $sql = "SELECT * FROM services";
+                    $result = $conn -> query($sql);
 
-        if($result->num_rows > 0){
-            echo "<table id='services'>
-                <tbody>
-                <tr>
-                    <th>Service</th>
-                    <th>Cost</th>
-                    <th><img src='images/cart.png'width='30px'/></th>
-                </tr>";
-            while($row = $result->fetch_assoc()){
-                $serviceName = $row["name"];
-                $serviceCost = $row["price"];
+                    if($result->num_rows > 0){
+                        echo "<table id='services'>
+                            <h3>SERVICES</h3>
+                            <tbody>
+                            <tr>
+                                <th>Item</th>
+                                <th>Cost</th>
+                                <th><img src='images/cart.png'width='30px'/></th>
+                            </tr>";
+                        while($row = $result->fetch_assoc()){
+                            $serviceName = $row["name"];
+                            $serviceCost = $row["price"];
 
-                echo 
-                '<tr> 
-                    <td >'.$serviceName.'</td> 
-                    <td > $ '.$serviceCost.'.00 </td> 
-                    <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
-                </tr>';
-            }
-            echo "</tbody></table>";
-            $result->free();
-        } else {
-            echo "0 results";
-        }
-        ?>
+                            echo 
+                            '<tr> 
+                                <td >'.$serviceName.'</td> 
+                                <td > $ '.$serviceCost.'.00 </td> 
+                                <td><button class="tableButton" type="button" onclick="addToCart(this)">Add to Cart</button></td>
+                            </tr>';
+                        }
+                        echo "</tbody></table>";
+                        $result->free();
+                    } else {
+                        echo "0 results";
+                    }
+                ?>
+            </div>
+        
+
+        
         </div>
         <br>
         <div id=cart>
@@ -154,6 +165,7 @@
         <button id="clear" type="button" onclick="emptyCart()">Clear Cart</button>
         <button id="print" type="button" onclick="printInvoice()">Print Invoice</button>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+        <script src="jspdf.plugin.autotable.min.js"></script>
         <script>
             
             var cart = []
@@ -208,8 +220,23 @@
             //PRINT INVOICE PDF
             
             var pdf = new jsPDF('p', 'pt', 'letter');
+            var userFirstLast = document.getElementById('customerName').innerHTML
+            var userEmail = document.getElementById('customerEmail').innerHTML
+            var userID = document.getElementById('customerId').innerHTML
+            var specialElementHandlers = {
+                '#editor': function (element,renderer) {
+                    return true;
+                }
+            };
+            margins = {
+                top: 80,
+                bottom: 60,
+                left: 40,
+                width: 12
+            };
 
             function printInvoice(){
+                pdf.setFontSize(12);
 
                 var logo = new Image();
                 
@@ -219,7 +246,7 @@
                 }
 
                 logo.onerror = function(){
-                    alert("Erro creating Invoice, Please try again")
+                    alert("Error creating Invoice, Please try again")
                 }
                 logo.src = "images/ctLogo.png"
                 pdf.addImage(logo, "PNG", 15, 15, 178, 109);
@@ -227,15 +254,18 @@
                 pdf.setLineWidth(1);
                 pdf.line(25, 120, 590, 120);
                 
-                pdf.text("Customer #: " + totalValue.innerHTML, 282, 50 )
+                pdf.text(userFirstLast, 450, 50);
+                pdf.text(userEmail, 450, 70);
+                pdf.text(userID, 450, 90);
                 
                 
 
 
                 //BODY
                 var cartTable = document.getElementById("cart");
-                pdf.fromHTML(cartTable, 15, 250,{
-                    width: 500
+                pdf.setFontSize(9);
+                pdf.fromHTML(cartTable, 30, 250,{
+                    width: 100;
                 });
 
                 //FOOTER

@@ -180,10 +180,28 @@ hr {
   text-align: right;
 }
 
+.flex-container-tables {
+  display: flex;
+  /* height: 1000px; */
+}
+
+.flex-child-tables {
+  flex: 1;
+  height: auto;
+}
+
+.flex-child-tables:first-child-tables {
+  margin-right: 20px;
+}
+
+.flex-child-tables p {
+  text-align: right;
+}
+
 #products,
 #services {
   border-collapse: collapse;
-  width: 700px;
+  width: 500px;
   text-align: center;
   table-layout: fixed;
   margin-right: auto;
@@ -222,7 +240,7 @@ hr {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #ce0c0b;
+  background-color: #c0392b;
   color: white;
 }
 
@@ -230,7 +248,7 @@ hr {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #ce0c0b;
+  background-color: #c0392b;
   color: white;
 }
 
@@ -244,8 +262,8 @@ hr {
 }
 
 .tableButton {
-  background-color: #ce0c0b;
-  border: 2px solid #ce0c0b;
+  background-color: #c0392b;
+  border: 2px solid #c0392b;
   color: white;
   padding: 7px 10px;
   font-weight: bold;
@@ -267,8 +285,8 @@ hr {
 }
 
 #print {
-  background-color: #ce0c0b;
-  border: 2px solid #ce0c0b;
+  background-color: #c0392b;
+  border: 2px solid #c0392b;
   color: white;
   padding: 7px 10px;
   text-align: center;
@@ -284,8 +302,8 @@ hr {
 
 #clear {
   background-color: white;
-  border: 2px solid #ce0c0b;
-  color: #ec0c0b;
+  border: 2px solid #c0392b;
+  color: #c0392b;
   padding: 7px 10px;
   text-align: center;
   text-decoration: none;
