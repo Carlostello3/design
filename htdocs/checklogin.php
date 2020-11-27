@@ -34,11 +34,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } 
         else {
             Print '<script>alert("Incorrect Password!");</script>';
-			Print '<script>window.location.assign("login.php");</script>';
+            Print '<script>window.location.assign("login.html");</script>';
         }
     }else {
             Print '<script>alert("Incorrect Username!");</script>';
-            Print '<script>window.location.assign("login.php");</script>';
+            Print '<script>window.location.assign("login.html");</script>';
     }
     $conn->close();
 }
