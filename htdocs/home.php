@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
@@ -9,7 +9,7 @@
         
         if($_SESSION['username']){
         } else {
-            header("location:index.php");
+            header("location:index.html");
         }
         
 
@@ -164,8 +164,13 @@
         </div>
         <button id="clear" type="button" onclick="emptyCart()">Clear Cart</button>
         <button id="print" type="button" onclick="printInvoice()">Print Invoice</button>
+
+        <footer>
+                CT Designs &#169 - 2020
+        </footer>
+
+        <!-- JAVASCRIPT -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-        <script src="jspdf.plugin.autotable.min.js"></script>
         <script>
             
             var cart = []
@@ -223,17 +228,10 @@
             var userFirstLast = document.getElementById('customerName').innerHTML
             var userEmail = document.getElementById('customerEmail').innerHTML
             var userID = document.getElementById('customerId').innerHTML
-            var specialElementHandlers = {
-                '#editor': function (element,renderer) {
-                    return true;
-                }
-            };
-            margins = {
-                top: 80,
-                bottom: 60,
-                left: 40,
-                width: 12
-            };
+            var cartTable = document.getElementById("cart");
+            var invoiceNumber = "Invoice #: " + Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
             function printInvoice(){
                 pdf.setFontSize(12);
@@ -250,26 +248,38 @@
                 }
                 logo.src = "images/ctLogo.png"
                 pdf.addImage(logo, "PNG", 15, 15, 178, 109);
+
+                pdf.text(date, 500, 80);
+                pdf.text(invoiceNumber, 500, 100);
                 
                 pdf.setLineWidth(1);
                 pdf.line(25, 120, 590, 120);
                 
-                pdf.text(userFirstLast, 450, 50);
-                pdf.text(userEmail, 450, 70);
-                pdf.text(userID, 450, 90);
+                //BILL TO INFORMATION
+                pdf.setFontType('bold');
+                pdf.text("Bill To:", 25, 150);
+
+                pdf.setFontType('normal');
+                pdf.text(userFirstLast, 25, 170);
+                pdf.text(userEmail, 25, 190);
+                pdf.text(userID, 25, 210);
                 
                 
-
-
                 //BODY
-                var cartTable = document.getElementById("cart");
-                pdf.setFontSize(9);
-                pdf.fromHTML(cartTable, 30, 250,{
-                    width: 100;
-                });
+                pdf.fromHTML(cartTable, 30, 250);
 
+                pdf.setFontSize(10);
+                pdf.setFontType('bold');
+                pdf.text("Payment Instructions:", 25, 700);
+
+                pdf.setFontType('normal');
+                pdf.text("Please send payment to payments@CTDesigns.com within 24 hours of receiving this invoice. \nThere will be a 5% fee added to late invoices.", 25, 710);
+
+                pdf.text("\nIf you are happy with your service today, please take a minute to leave a review!", 25, 720);
                 //FOOTER
-
+                pdf.line(25, 750, 590, 750);
+                pdf.setFontSize(8);
+                pdf.text("CT Designs - 2020", 265, 765);
 
 
                 pdf.save("Invoice.pdf");
