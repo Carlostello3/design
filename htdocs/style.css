@@ -1,0 +1,318 @@
+body {
+  background-color: white;
+  margin-right: auto;
+  margin-left: auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 1024px;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+footer {
+  padding-top: 30px;
+  display: block;
+  width: 130px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.mainImage {
+  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div.mainImage p {
+  text-transform: uppercase;
+  width: 420px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.buttons {
+  margin-right: auto;
+  margin-left: auto;
+  width: 430px;
+  height: 100px;
+}
+
+.newUserButton {
+  background-color: #ce0c0b;
+  border: 2px solid #ce0c0b;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.loginButton {
+  background-color: white;
+  border: 2px solid #ce0c0b;
+  color: #ec0c0b;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+div.buttons a {
+  float: left;
+  display: inline;
+  cursor: pointer;
+}
+
+body.login h2 {
+  font-weight: bold;
+}
+
+form {
+  width: 340px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  background-color: #ce0c0b;
+  border: 2px solid #ce0c0b;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 300px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.imgContainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+.formContainer {
+  padding: 16px;
+}
+
+.submitButton {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100px;
+}
+
+.submitButton2 {
+  margin-right: auto;
+  margin-left: auto;
+  width: 240px;
+}
+
+.bottomLinks {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+div.bottomLinks a {
+  color: #ce0c0b;
+  text-decoration: none;
+}
+
+small {
+  color: #ce0c0b;
+  float: right;
+}
+
+hr {
+  border: 1px solid #ce0c0b;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-child {
+  flex: 1;
+  height: 150px;
+}
+
+.flex-child:first-child {
+  margin-right: 20px;
+}
+
+.flex-child p {
+  text-align: right;
+}
+
+.flex-container-tables {
+  display: flex;
+  /* height: 1000px; */
+}
+
+.flex-child-tables {
+  flex: 1;
+  height: auto;
+}
+
+.flex-child-tables:first-child-tables {
+  margin-right: 20px;
+}
+
+.flex-child-tables p {
+  text-align: right;
+}
+
+#products,
+#services {
+  border-collapse: collapse;
+  width: 500px;
+  text-align: center;
+  table-layout: fixed;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#cart {
+  table-layout: fixed;
+  width: 500px;
+  text-align: center;
+}
+
+#products td,
+#products th,
+#services td,
+#services th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#products tr:nth-child(even),
+#services tr:nth-child(even),
+#tableCart tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#products tr:hover,
+#services tr:hover,
+#tableCart tr:hover {
+  background-color: #ddd;
+}
+
+#products th,
+#services th,
+#tableCart th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #c0392b;
+  color: white;
+}
+
+#cart th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #c0392b;
+  color: white;
+}
+
+#cart td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.totalValue {
+  font-weight: bold;
+}
+
+.tableButton {
+  background-color: #c0392b;
+  border: 2px solid #c0392b;
+  color: white;
+  padding: 7px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.flex-child a {
+  background-color: #ce0c0b;
+  color: white;
+  padding: 7px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#print {
+  background-color: #c0392b;
+  border: 2px solid #c0392b;
+  color: white;
+  padding: 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+#clear {
+  background-color: white;
+  border: 2px solid #c0392b;
+  color: #c0392b;
+  padding: 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
